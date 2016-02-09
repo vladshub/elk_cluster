@@ -1,0 +1,33 @@
+elastic0:
+  image: elasticsearch
+  volumes:
+  - "./elastic1/config:/usr/share/elasticsearch/config"
+  - "./elastic1/plugins:/usr/share/elasticsearch/plugins"
+  ports:
+  - "9200:9200"
+  - "9300:9300"
+
+elastic1:
+  image: elasticsearch
+  volumes:
+  - "./elastic2/config:/usr/share/elasticsearch/config"
+  - "./elastic2/plugins:/usr/share/elasticsearch/plugins"
+  ports:
+  - "9201:9200"
+  - "9301:9300"
+  links:
+  - elastic0
+
+elastic2:
+  image: elasticsearch
+  volumes:
+  - "./elastic3/config:/usr/share/elasticsearch/config"
+  - "./elastic3/plugins:/usr/share/elasticsearch/plugins"
+  ports:
+  - "9202:9200"
+  - "9302:9300"
+  links:
+  - elastic0
+  - elastic1
+
+
